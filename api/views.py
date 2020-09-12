@@ -18,6 +18,13 @@ def apiOverview(request):
 
   return Response(api_urls)
 
+# return all users
+@api_view(["GET"])
+def userList(request):
+  users = User.objects.all().order_by("-id")
+  serializer = UserSerializer(users, many=True)
+  return Response(serializer.data)
+
 # return all palettes
 @api_view(["GET"])
 def paletteList(request):
